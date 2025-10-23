@@ -198,7 +198,7 @@ if (ENABLE_DUMP_PIPE)
 endif ()
 
 # Required tools and libraries.
-find_package (PythonInterp 3 REQUIRED)
+find_package (Python3 REQUIRED)
 find_package (FLEX 2.0 REQUIRED)
 find_package (BISON 3.0 REQUIRED)
 # If we enable GTest, install GoogleTest with the appropriate options.
@@ -220,13 +220,13 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 # The boost graph headers are optional and only required by the graphs back end.
-find_package (Boost QUIET COMPONENTS graph)
+find_package (Boost CONFIG QUIET COMPONENTS graph)
 if (Boost_FOUND)
   set (HAVE_LIBBOOST_GRAPH 1)
 else ()
   message (WARNING "Boost graph headers not found, will not build 'graphs' backend")
 endif ()
-find_package (Boost REQUIRED COMPONENTS iostreams)
+find_package (Boost CONFIG REQUIRED COMPONENTS iostreams)
 
 # Compile with the Boehm garbage collector (https://github.com/ivmai/bdwgc), if requested.
 # One can disable the GC, e.g., to run under Valgrind, by editing config.h.

@@ -201,8 +201,9 @@ set (MIN_LLVM 3.7.1)
 # https://github.com/p4lang/p4c/issues/1376
 set(LLVM_CMD "llvm-config --version")
 message(STATUS "Check LLVM version with '${LLVM_CMD}'")
-exec_program(${LLVM_CMD}
-    RETURN_VALUE LLVM_RET
+execute_process(
+    COMMAND ${LLVM_CMD}
+    RESULT_VARIABLE LLVM_RET
     OUTPUT_VARIABLE LLVM_PACKAGE_VERSION)
 if (NOT LLVM_RET)
   message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")

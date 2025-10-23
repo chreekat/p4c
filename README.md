@@ -239,8 +239,8 @@ sudo dpkg -i /path/to/package.deb
        Only has an effect when `P4C_USE_PREINSTALLED_PROTOBUF` is enabled.
      - `-DENABLE_MULTITHREAD=ON|OFF`. Use multithreading.  Default is
        OFF.
-     - `-DBUILD_LINK_WITH_GOLD=ON|OFF`. Use Gold linker for build if available.
-     - `-DBUILD_LINK_WITH_LLD=ON|OFF`. Use LLD linker for build if available (overrides `BUILD_LINK_WITH_GOLD`).
+     - `-DBUILD_LINK_WITH_GOLD=ON|OFF`. Use Gold linker for build if available. Default is ON.
+     - `-DBUILD_LINK_WITH_LLD=ON|OFF`. Use LLD linker for build if available (overrides `BUILD_LINK_WITH_GOLD` if both are available). Default is ON.
      - `-DENABLE_LTO=ON|OFF`. Use Link Time Optimization (LTO).  Default is OFF.
      - `-DENABLE_WERROR=ON|OFF`. Treat warnings as errors.  Default is OFF.
      - `-DCMAKE_UNITY_BUILD=ON|OFF `. Enable [unity builds](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html) for faster compilation.  Default is OFF.

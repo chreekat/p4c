@@ -59,8 +59,9 @@ macro(obtain_z3)
         git apply ${P4C_SOURCE_DIR}/cmake/z3.patch || git apply
         ${P4C_SOURCE_DIR}/cmake/z3.patch -R --check && echo
         "Patch does not apply because the patch was already applied."
+      EXCLUDE_FROM_ALL TRUE
     )
-    fetchcontent_makeavailable_but_exclude_install(z3)
+    FetchContent_MakeAvailable(z3)
 
     # Suppress warnings for all Z3 targets.
     get_all_targets(Z3_BUILD_TARGETS ${z3_SOURCE_DIR})

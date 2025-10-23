@@ -44,8 +44,9 @@ macro(p4c_obtain_abseil)
       USES_TERMINAL_DOWNLOAD TRUE
       GIT_PROGRESS TRUE
       DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+      EXCLUDE_FROM_ALL TRUE
     )
-    fetchcontent_makeavailable_but_exclude_install(abseil)
+    FetcHContent_MakeAvailable(abseil)
 
     # Suppress warnings for all Abseil targets.
     get_all_targets(ABSL_BUILD_TARGETS ${absl_SOURCE_DIR})

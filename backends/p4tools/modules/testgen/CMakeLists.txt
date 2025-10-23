@@ -64,8 +64,9 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/pantor/inja.git
   GIT_TAG        3741c73ba78babd2ed88f2acf2fcd6dafdb878e8
   GIT_PROGRESS TRUE
+  EXCLUDE_FROM_ALL TRUE
 )
-fetchcontent_makeavailable_but_exclude_install(inja)
+FetchContent_MakeAvailable(inja)
 
 # Testgen libraries and includes. Defined here such that targets can extend them.
 set(

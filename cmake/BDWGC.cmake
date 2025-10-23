@@ -39,8 +39,9 @@ macro(p4c_obtain_bdwgc)
       GIT_REPOSITORY https://github.com/ivmai/bdwgc.git
       GIT_TAG 7f1503dbfe254e77678666a0e09b735add064b57 # 8.2.6, 2024-08-03
       GIT_PROGRESS TRUE
+      EXCLUDE_FROM_ALL TRUE
     )
-    fetchcontent_makeavailable_but_exclude_install(bdwgc)
+    FetchContent_MakeAvailable(bdwgc)
 
     # Bdwgc source code may trigger warnings which we need to ignore.
     target_compile_options(gc PRIVATE "-Wno-error" "-w")
