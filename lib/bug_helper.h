@@ -41,7 +41,7 @@ static inline std::pair<absl::string_view, std::string> getPositionTail(const Ut
     if (position.empty()) {
         position = posString;
     } else {
-        outTail.append(posString);
+        outTail.append(std::string_view(posString.data(), posString.size()));
         if (!posString.empty()) outTail.append("\n");
     }
     outTail += info.toSourceFragment();

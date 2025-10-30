@@ -100,7 +100,7 @@ unsigned InputSources::lineCount() const {
 }
 
 // Append this text to the last line
-void InputSources::appendToLastLine(absl::string_view text) {
+void InputSources::appendToLastLine(std::string text) {
     if (sealed) BUG("Appending to sealed InputSources");
     // Text should not contain any newline characters
     for (size_t i = 0; i < text.size(); i++) {
@@ -111,7 +111,7 @@ void InputSources::appendToLastLine(absl::string_view text) {
 }
 
 // Append a newline and start a new line
-void InputSources::appendNewline(absl::string_view newline) {
+void InputSources::appendNewline(std::string newline) {
     if (sealed) BUG("Appending to sealed InputSources");
     contents.back() += newline;
     contents.push_back("");  // start a new line
@@ -119,7 +119,7 @@ void InputSources::appendNewline(absl::string_view newline) {
 
 void InputSources::appendText(const char *text) {
     if (text == nullptr) BUG("Null text being appended");
-    absl::string_view ref(text);
+    std::string ref(text);
 
     while (ref.size() > 0) {
         auto nlPos = ref.find_first_of("\r\n");

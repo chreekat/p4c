@@ -265,7 +265,7 @@ cstring cstring::trim(const char *ws) const {
 cstring cstring::indent(size_t amount) const {
     std::string spaces(amount, ' ');
     std::string spc = "\n" + spaces;
-    return cstring(absl::StrCat(spaces, absl::StrReplaceAll(string_view(), {{"\n", spc}})));
+    return cstring(absl::StrCat(spaces, absl::StrReplaceAll(absl::string_view(), {{"\n", spc}})));
 }
 
 // See https://stackoverflow.com/a/33799784/4538702

@@ -193,7 +193,7 @@ JsonObject *JsonObject::emplace(absl::string_view label, IJson *value) {
     if (label.empty()) throw std::logic_error("Empty label");
     auto j = get(label);
     if (j != nullptr) {
-        cstring s = value->toString();
+        absl::string_view s = value->toString();
         throw std::logic_error(
             absl::StrCat("Attempt to add to json object a value "
                          "for a label which already exists ",

@@ -122,6 +122,12 @@ class cstring {
         construct_from_shared(string.data(), string.length());
     }
 
+    // construct cstring from absl::string_view. Do not use if possible, this is linear
+    // time operation if string not exists in table, because the underlying string must be copied.
+    explicit cstring(std::string_view string) {
+        construct_from_shared(string.data(), string.length());
+    }
+
     // TODO (DanilLutsenko): Make special case for r-value std::string?
 
     // Just helper function, for lazies, who do not like to write .str()
@@ -188,10 +194,14 @@ class cstring {
     std::string string() const { return str ? std::string(str) : std::string(""); }
     explicit operator std::string() const { return string(); }
 
-    absl::string_view string_view() const {
+    std::string_view string_view() const {
+        return str ? std::string_view(str) : std::string_view("");
+    }
+    operator std::string_view() const { return string_view(); }
+
+    operator absl::string_view() const {
         return str ? absl::string_view(str) : absl::string_view("");
     }
-    operator absl::string_view() const { return string_view(); }
 
     // Size tests. Constant time except for size(), which is linear time.
     size_t size() const {

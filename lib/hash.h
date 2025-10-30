@@ -11,6 +11,8 @@
 #include <tuple>
 #include <type_traits>
 
+#include "absl/strings/str_cat.h"
+
 namespace P4::Util {
 
 namespace Detail {

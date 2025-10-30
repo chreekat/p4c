@@ -335,9 +335,9 @@ class InputSources final {
 
  private:
     /// Append this text to the last line; must not contain newlines
-    void appendToLastLine(absl::string_view text);
+    void appendToLastLine(std::string text);
     /// Append a newline and start a new line
-    void appendNewline(absl::string_view newline);
+    void appendNewline(std::string newline);
 
     /// Input program that is being currently compiled; there can be only one.
     bool sealed;
