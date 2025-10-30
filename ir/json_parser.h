@@ -49,7 +49,7 @@ class JsonBoolean : public JsonData {
 class JsonString : public JsonData, public std::string {
  public:
     JsonString() {}
-    explicit JsonString(std::string_view s) : std::string(s) {}
+    explicit JsonString(absl::string_view s) : std::string(s) {}
     JsonString(const JsonString &) = default;
     JsonString(JsonString &&) = default;
     JsonString &operator=(const JsonString &) & = default;

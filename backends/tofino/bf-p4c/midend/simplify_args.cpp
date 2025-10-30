@@ -173,7 +173,7 @@ void FlattenHeader::flattenType(const IR::Type *type) {
     }
 }
 
-cstring FlattenHeader::makeName(std::string_view sep) const {
+cstring FlattenHeader::makeName(absl::string_view sep) const {
     std::string name;
     for (auto n : nameSegments) {
         name += sep;
@@ -214,7 +214,7 @@ bool FlattenHeader::preorder(IR::Type_Header *headerType) {
     return false;
 }
 
-cstring FlattenHeader::makeMember(std::string_view sep) const {
+cstring FlattenHeader::makeMember(absl::string_view sep) const {
     std::string name;
     for (auto n = memberSegments.rbegin(); n != memberSegments.rend(); n++) {
         name += sep;
@@ -457,7 +457,7 @@ void FlattenHeader::explode(const IR::Expression *expression, IR::Vector<IR::Exp
  * We should clean up the frontend flattenHeaders pass to not
  * append a digit after each field.
  */
-cstring FlattenHeader::makePath(std::string_view sep) const {
+cstring FlattenHeader::makePath(absl::string_view sep) const {
     std::string name;
     for (auto n : pathSegments) {
         name += sep;

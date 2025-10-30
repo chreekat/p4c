@@ -145,7 +145,7 @@ class PrimitiveConverter {
     int priority;
 
  protected:
-    PrimitiveConverter(std::string_view name, int prio);
+    PrimitiveConverter(absl::string_view name, int prio);
     virtual ~PrimitiveConverter();
 
     // helper functions

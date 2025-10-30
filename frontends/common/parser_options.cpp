@@ -67,7 +67,7 @@ void ParserOptions::closeFile(FILE *file) {
     }
 }
 
-ParserOptions::ParserOptions(std::string_view defaultMessage) : Util::Options(defaultMessage) {
+ParserOptions::ParserOptions(absl::string_view defaultMessage) : Util::Options(defaultMessage) {
     registerOption(
         "--help", nullptr,
         [this](const char *) {
@@ -446,7 +446,7 @@ std::optional<ParserOptions::PreprocessorResult> ParserOptions::preprocess() con
 // folder/file-suffix.ext
 static std::filesystem::path makeFileName(const std::filesystem::path &folder,
                                           const std::filesystem::path &name,
-                                          std::string_view baseSuffix) {
+                                          absl::string_view baseSuffix) {
     std::filesystem::path newName(name.stem());
     newName += baseSuffix;
     newName += name.extension();

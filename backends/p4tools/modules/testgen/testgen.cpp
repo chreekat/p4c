@@ -143,7 +143,7 @@ int generateAndWriteAbstractTests(const TestgenOptions &testgenOptions,
     return postProcess(testgenOptions, *testBackend);
 }
 
-std::optional<AbstractTestList> generateTestsImpl(std::optional<std::string_view> program,
+std::optional<AbstractTestList> generateTestsImpl(std::optional<absl::string_view> program,
                                                   const TestgenOptions &testgenOptions,
                                                   bool writeTests) {
     P4Tools::Target::init(testgenOptions.target.c_str(), testgenOptions.arch.c_str());
@@ -205,7 +205,7 @@ int Testgen::mainImpl(const CompilerResult &compilerResult) {
     return generateAndWriteAbstractTests(TestgenOptions::get(), *programInfo);
 }
 
-std::optional<AbstractTestList> Testgen::generateTests(std::string_view program,
+std::optional<AbstractTestList> Testgen::generateTests(absl::string_view program,
                                                        const TestgenOptions &testgenOptions) {
     try {
         return generateTestsImpl(program, testgenOptions, false);
@@ -230,7 +230,7 @@ std::optional<AbstractTestList> Testgen::generateTests(const TestgenOptions &tes
     return std::nullopt;
 }
 
-int Testgen::writeTests(std::string_view program, const TestgenOptions &testgenOptions) {
+int Testgen::writeTests(absl::string_view program, const TestgenOptions &testgenOptions) {
     try {
         if (generateTestsImpl(program, testgenOptions, true).has_value()) {
             return EXIT_SUCCESS;

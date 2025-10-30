@@ -121,7 +121,7 @@ int compareAgainstReference(const std::stringstream &formattedOutput,
 
 std::optional<std::filesystem::path> getFilePath(const ReferenceCheckerOptions &options,
                                                  const std::filesystem::path &basePath,
-                                                 std::string_view suffix) {
+                                                 absl::string_view suffix) {
     auto referenceFileOpt = options.getReferenceFile();
     auto referencePath = basePath;
     if (referenceFileOpt.has_value()) {

@@ -143,8 +143,8 @@ TEST(StringMap, At) {
 
     // heterogeneous look-up works.
     string_map<unsigned> m2 = {{"a"_cs, 1}, {"b"_cs, 2}};
-    EXPECT_EQ(1, m2.at(std::string_view("a")));
-    EXPECT_EQ(2, std::as_const(m2).at(std::string_view("b")));
+    EXPECT_EQ(1, m2.at(absl::string_view("a")));
+    EXPECT_EQ(2, std::as_const(m2).at(absl::string_view("b")));
 }
 
 TEST(StringMap, InsertEmplaceErase) {
@@ -159,13 +159,13 @@ TEST(StringMap, InsertEmplaceErase) {
             if ((v / 2) % 2 == 0) {
                 it = om.insert(pair).first;
             } else {
-                it = om.emplace(std::string_view(std::to_string(v)), pair.second).first;
+                it = om.emplace(absl::string_view(std::to_string(v)), pair.second).first;
             }
         } else {
             if ((v / 2) % 2 == 0) {
                 it = om.insert(std::move(pair)).first;
             } else {
-                it = om.emplace(std::string_view(std::to_string(v)), v * 2).first;
+                it = om.emplace(absl::string_view(std::to_string(v)), v * 2).first;
             }
         }
     }

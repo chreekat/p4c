@@ -77,14 +77,14 @@ class Token {
     };
 
     Kind m_kind{};
-    std::string_view m_lexeme{};
+    absl::string_view m_lexeme{};
 
     explicit Token(Kind kind) noexcept : m_kind{kind} {}
 
     Token(Kind kind, const char *beg, std::size_t len) noexcept
         : m_kind{kind}, m_lexeme(beg, len) {}
 
-    Token(Kind kind, std::string_view lexeme) noexcept : m_kind{kind}, m_lexeme(lexeme) {}
+    Token(Kind kind, absl::string_view lexeme) noexcept : m_kind{kind}, m_lexeme(lexeme) {}
 
     Token(Kind kind, const char *beg, const char *end) noexcept
         : m_kind{kind}, m_lexeme(beg, std::distance(beg, end)) {}
@@ -102,9 +102,9 @@ class Token {
     template <typename... Ts>
     bool isOneOf(Kind k1, Kind k2, Ts... ks) const noexcept;
 
-    [[nodiscard]] std::string_view lexeme() const noexcept;
+    [[nodiscard]] absl::string_view lexeme() const noexcept;
 
-    void lexeme(std::string_view lexeme) noexcept;
+    void lexeme(absl::string_view lexeme) noexcept;
 };
 
 class Lexer {

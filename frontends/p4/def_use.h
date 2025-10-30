@@ -239,7 +239,7 @@ class StorageFactory {
     template <class T>
     T *construct(const IR::Type *type, cstring name) const;
 
-    static constexpr std::string_view indexFieldName = "$last_index";
+    static constexpr absl::string_view indexFieldName = "$last_index";
 
  public:
     StorageLocation *create(const IR::Type *type, cstring name) const;

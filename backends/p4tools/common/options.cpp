@@ -51,7 +51,7 @@ std::vector<const char *> *AbstractP4cToolOptions::process(int argc, char *const
     return ParserOptions::process(argc, argv);
 }
 
-AbstractP4cToolOptions::AbstractP4cToolOptions(std::string_view toolName, std::string_view message)
+AbstractP4cToolOptions::AbstractP4cToolOptions(absl::string_view toolName, absl::string_view message)
     : CompilerOptions(message), _toolName(toolName) {
     // Register some common options.
     registerOption(

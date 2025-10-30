@@ -122,8 +122,8 @@ TEST(FlatMap, At) {
 
     // heterogeneous look-up works.
     flat_map<std::string, unsigned> m2 = {{"a", 1}, {"b", 2}};
-    EXPECT_EQ(1, m2.at(std::string_view("a")));
-    EXPECT_EQ(2, std::as_const(m2).at(std::string_view("b")));
+    EXPECT_EQ(1, m2.at(absl::string_view("a")));
+    EXPECT_EQ(2, std::as_const(m2).at(absl::string_view("b")));
 }
 
 TEST(FlatMap, MapEqual) {

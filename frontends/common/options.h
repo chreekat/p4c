@@ -33,7 +33,7 @@ class CompilerOptions : public ParserOptions {
     bool validateOptions() const override;
 
  public:
-    explicit CompilerOptions(std::string_view defaultMessage = "Compile a P4 program");
+    explicit CompilerOptions(absl::string_view defaultMessage = "Compile a P4 program");
 
     // If true, skip frontend passes whose names are contained in
     // passesToExcludeFrontend vector.

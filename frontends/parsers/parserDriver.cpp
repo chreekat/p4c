@@ -104,7 +104,7 @@ void AbstractParserDriver::onReadIdentifier(cstring id) { lastIdentifier = id; }
 
 void AbstractParserDriver::onParseError(const Util::SourceInfo &location,
                                         const std::string &message) {
-    static const std::string_view unexpectedIdentifierError = "syntax error, unexpected IDENTIFIER";
+    static const absl::string_view unexpectedIdentifierError = "syntax error, unexpected IDENTIFIER";
     auto &context = BaseCompileContext::get();
     if (message == unexpectedIdentifierError) {
         context.errorReporter().parser_error(
@@ -117,7 +117,7 @@ void AbstractParserDriver::onParseError(const Util::SourceInfo &location,
 P4ParserDriver::P4ParserDriver()
     : structure(new Util::ProgramStructure), nodes(new IR::Vector<IR::Node>()) {}
 
-bool P4ParserDriver::parse(AbstractP4Lexer &lexer, std::string_view sourceFile,
+bool P4ParserDriver::parse(AbstractP4Lexer &lexer, absl::string_view sourceFile,
                            unsigned sourceLine /* = 1 */) {
     // Create and configure the parser.
     P4Parser parser(*this, lexer);
@@ -137,7 +137,7 @@ bool P4ParserDriver::parse(AbstractP4Lexer &lexer, std::string_view sourceFile,
 }
 
 /* static */ const IR::P4Program *P4ParserDriver::parse(std::istream &in,
-                                                        std::string_view sourceFile,
+                                                        absl::string_view sourceFile,
                                                         unsigned sourceLine /* = 1 */) {
     LOG1("Parsing P4-16 program " << sourceFile);
 
@@ -147,14 +147,14 @@ bool P4ParserDriver::parse(AbstractP4Lexer &lexer, std::string_view sourceFile,
     return new IR::P4Program(driver.nodes->srcInfo, *driver.nodes);
 }
 
-/* static */ const IR::P4Program *P4ParserDriver::parse(FILE *in, std::string_view sourceFile,
+/* static */ const IR::P4Program *P4ParserDriver::parse(FILE *in, absl::string_view sourceFile,
                                                         unsigned sourceLine /* = 1 */) {
     AutoStdioInputStream inputStream(in);
     return parse(inputStream.get(), sourceFile, sourceLine);
 }
 
 /* static */ std::pair<const IR::P4Program *, const Util::InputSources *>
-P4ParserDriver::parseProgramSources(std::istream &in, std::string_view sourceFile,
+P4ParserDriver::parseProgramSources(std::istream &in, absl::string_view sourceFile,
                                     unsigned sourceLine /* = 1 */) {
     P4ParserDriver driver;
     P4Lexer lexer(in);
@@ -169,7 +169,7 @@ P4ParserDriver::parseProgramSources(std::istream &in, std::string_view sourceFil
 }
 
 /*static */ std::pair<const IR::P4Program *, const Util::InputSources *>
-P4ParserDriver::parseProgramSources(FILE *in, std::string_view sourceFile,
+P4ParserDriver::parseProgramSources(FILE *in, absl::string_view sourceFile,
                                     unsigned sourceLine /* = 1 */) {
     AutoStdioInputStream inputStream(in);
     return parseProgramSources(inputStream.get(), sourceFile, sourceLine);
@@ -311,7 +311,7 @@ namespace P4::V1 {
 V1ParserDriver::V1ParserDriver() : global(new IR::V1Program) {}
 
 /* static */ const IR::V1Program *V1ParserDriver::parse(std::istream &in,
-                                                        std::string_view sourceFile,
+                                                        absl::string_view sourceFile,
                                                         unsigned sourceLine /* = 1 */) {
     LOG1("Parsing P4-14 program " << sourceFile);
 
@@ -332,7 +332,7 @@ V1ParserDriver::V1ParserDriver() : global(new IR::V1Program) {}
     return driver.global;
 }
 
-/* static */ const IR::V1Program *V1ParserDriver::parse(FILE *in, std::string_view sourceFile,
+/* static */ const IR::V1Program *V1ParserDriver::parse(FILE *in, absl::string_view sourceFile,
                                                         unsigned sourceLine /* = 1 */) {
     AutoStdioInputStream inputStream(in);
     return parse(inputStream.get(), sourceFile, sourceLine);

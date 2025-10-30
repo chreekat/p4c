@@ -126,6 +126,6 @@ cstring toString(cstring value) {
     return value;
 }
 
-cstring toString(std::string_view value) { return cstring(value); }
+cstring toString(absl::string_view value) { return cstring(value); }
 
 }  // namespace P4::Util

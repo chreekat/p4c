@@ -80,7 +80,7 @@ class TypeConstraint : public IHasDbPrint, public ICastable {
     std::string localError(Explain *explainer) const;
 
  public:
-    void setError(std::string_view format, std::initializer_list<const IR::Node *> nodes) {
+    void setError(absl::string_view format, std::initializer_list<const IR::Node *> nodes) {
         errFormat = cstring(format);
         errArguments = nodes;
     }

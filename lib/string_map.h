@@ -33,7 +33,7 @@ namespace P4 {
 ///
 /// For this particular implementation:
 ///  * Key are stored as cstrings in the underlying abseil hash map.
-///  * Heterogenous lookup (with std::string_view keys) is supported. Special
+///  * Heterogenous lookup (with absl::string_view keys) is supported. Special
 ///    care is done not to create cstrings in case if they are not in the map
 ///    already
 ///  * Values are stored in std::list, similar to ordered_map.
@@ -121,18 +121,18 @@ class string_map {
     }
 
     iterator find(cstring a) { return tr_iter(data_map.find(a)); }
-    /// Functions below do have `std::string_view` versions. Here we are having
+    /// Functions below do have `absl::string_view` versions. Here we are having
     /// important special case: if `a` is not something that was interned, we do
     /// not copy / intern it, we know for sure that `a` is not in the map and we
     /// do not need to perform a lookup.
-    iterator find(std::string_view a) {
+    iterator find(absl::string_view a) {
         cstring key = cstring::get_cached(a);
         if (key.isNull()) return data.end();
 
         return tr_iter(data_map.find(key));
     }
     const_iterator find(cstring a) const { return tr_iter(data_map.find(a)); }
-    const_iterator find(std::string_view a) const {
+    const_iterator find(absl::string_view a) const {
         cstring key = cstring::get_cached(a);
         if (key.isNull()) return data.end();
 
@@ -140,7 +140,7 @@ class string_map {
     }
 
     size_type count(cstring a) const { return data_map.count(a); }
-    size_type count(std::string_view a) const {
+    size_type count(absl::string_view a) const {
         cstring key = cstring::get_cached(a);
         if (key.isNull()) return 0;
 
@@ -148,7 +148,7 @@ class string_map {
     }
 
     bool contains(cstring a) const { return data_map.contains(a); }
-    bool contains(std::string_view a) const {
+    bool contains(absl::string_view a) const {
         cstring key = cstring::get_cached(a);
         if (key.isNull()) return false;
 
@@ -221,7 +221,7 @@ class string_map {
         }
         return 0;
     }
-    size_type erase(std::string_view k) {
+    size_type erase(absl::string_view k) {
         auto it = find(k);
         if (it != data.end()) {
             data_map.erase(it->first);

@@ -142,7 +142,7 @@ class table_entry {
         return length() == other.length() && std::memcmp(string(), other.string(), length()) == 0;
     }
 
-    bool operator==(std::string_view other) const {
+    bool operator==(absl::string_view other) const {
         return length() == other.length() && std::memcmp(string(), other.data(), length()) == 0;
     }
 
@@ -164,7 +164,7 @@ struct TableEntryHash {
         return Util::hash(entry.string(), entry.length());
     }
 
-    size_t operator()(std::string_view entry) const {
+    size_t operator()(absl::string_view entry) const {
         return Util::hash(entry.data(), entry.length());
     }
 };
@@ -189,9 +189,9 @@ const char *save_to_cache(const char *string, std::size_t length, table_entry_fl
 
 }  // namespace
 
-bool cstring::is_cached(std::string_view s) { return cache().contains(s); }
+bool cstring::is_cached(absl::string_view s) { return cache().contains(s); }
 
-cstring cstring::get_cached(std::string_view s) {
+cstring cstring::get_cached(absl::string_view s) {
     auto entry = cache().find(s);
     if (entry == cache().end()) return nullptr;
 
@@ -221,12 +221,12 @@ size_t cstring::cache_size(size_t &count) {
     return rv;
 }
 
-bool cstring::startsWith(std::string_view prefix) const {
+bool cstring::startsWith(absl::string_view prefix) const {
     if (prefix.empty()) return true;
     return size() >= prefix.size() && memcmp(str, prefix.data(), prefix.size()) == 0;
 }
 
-bool cstring::endsWith(std::string_view suffix) const {
+bool cstring::endsWith(absl::string_view suffix) const {
     if (suffix.empty()) return true;
     return size() >= suffix.size() &&
            memcmp(str + size() - suffix.size(), suffix.data(), suffix.size()) == 0;
@@ -247,7 +247,7 @@ cstring cstring::replace(char c, char with) const {
     return cstring(dup);
 }
 
-cstring cstring::replace(std::string_view search, std::string_view replace) const {
+cstring cstring::replace(absl::string_view search, absl::string_view replace) const {
     if (search.empty() || isNullOrEmpty()) return *this;
 
     return cstring(absl::StrReplaceAll(str, {{search, replace}}));

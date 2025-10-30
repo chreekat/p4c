@@ -100,7 +100,7 @@ class IndexedVector : public Vector<T> {
         if (it == declarations.end()) return nullptr;
         return it->second;
     }
-    const IDeclaration *getDeclaration(std::string_view name) const {
+    const IDeclaration *getDeclaration(absl::string_view name) const {
         auto it = declarations.find(name);
         if (it == declarations.end()) return nullptr;
         return it->second;
@@ -112,7 +112,7 @@ class IndexedVector : public Vector<T> {
         return it->second->template to<U>();
     }
     template <class U>
-    const U *getDeclaration(std::string_view name) const {
+    const U *getDeclaration(absl::string_view name) const {
         auto it = declarations.find(name);
         if (it == declarations.end()) return nullptr;
         return it->second->template to<U>();

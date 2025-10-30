@@ -259,8 +259,8 @@ TEST(Hash, Strings) {
     Util::Hash h;
     EXPECT_NE(h(a1), h(b1));
 
-    EXPECT_EQ(h(std::string{a1}), h(std::string_view{a1}));
-    EXPECT_EQ(h(std::string{b1}), h(std::string_view{b1}));
+    EXPECT_EQ(h(std::string{a1}), h(absl::string_view{a1}));
+    EXPECT_EQ(h(std::string{b1}), h(absl::string_view{b1}));
 }
 
 namespace {

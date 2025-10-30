@@ -59,7 +59,7 @@ class DoStaticAssert : public Transform, public ResolutionContext {
                 CHECK_NULL(arg);
                 if (auto bl = arg->expression->to<IR::BoolLiteral>()) {
                     if (!bl->value) {
-                        std::string_view message = "static_assert failed";
+                        absl::string_view message = "static_assert failed";
                         if (params->moveNext()) {
                             param = params->getCurrent();
                             CHECK_NULL(param);

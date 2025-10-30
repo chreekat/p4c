@@ -627,8 +627,8 @@ class EmitDpdkTableConfig : public Inspector {
                                                P4::TypeMap *typeMap);
     bool tableNeedsPriority(const IR::DpdkTable *table, P4::ReferenceMap *refMap);
     bool isAllKeysDefaultExpression(const IR::ListExpression *keyset);
-    void print(std::string_view str, std::string_view sep = "");
-    void print(big_int, std::string_view sep = "");
+    void print(absl::string_view str, absl::string_view sep = "");
+    void print(big_int, absl::string_view sep = "");
 
  public:
     EmitDpdkTableConfig(P4::ReferenceMap *refMap, P4::TypeMap *typeMap,

@@ -23,20 +23,20 @@ class CompilerTarget : public Target {
     ///
     /// @returns std::nullopt if an error occurs during compilation.
     static CompilerResultOrError runCompiler(const CompilerOptions &options,
-                                             std::string_view toolName);
+                                             absl::string_view toolName);
 
     /// Runs the P4 compiler to produce an IR and other information for the given source code.
     ///
     /// @returns std::nullopt if an error occurs during compilation.
     static CompilerResultOrError runCompiler(const CompilerOptions &options,
-                                             std::string_view toolName, const std::string &source);
+                                             absl::string_view toolName, const std::string &source);
 
  private:
     /// Runs the front and mid ends on the given parsed program.
     ///
     /// @returns std::nullopt if an error occurs during compilation.
     static CompilerResultOrError runCompiler(const CompilerOptions &options,
-                                             std::string_view toolName, const IR::P4Program *);
+                                             absl::string_view toolName, const IR::P4Program *);
 
  protected:
     /// @see runCompiler.
@@ -66,12 +66,12 @@ class CompilerTarget : public Target {
     const IR::P4Program *runMidEnd(const CompilerOptions &options,
                                    const IR::P4Program *program) const;
 
-    explicit CompilerTarget(std::string_view toolName, const std::string &deviceName,
+    explicit CompilerTarget(absl::string_view toolName, const std::string &deviceName,
                             const std::string &archName);
 
  private:
     /// @returns the singleton instance for the current target.
-    static const CompilerTarget &get(std::string_view toolName);
+    static const CompilerTarget &get(absl::string_view toolName);
 };
 
 }  // namespace P4::P4Tools

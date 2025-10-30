@@ -18,7 +18,7 @@ auto &origNameMap = DPDK::ShortenTokenLength::origNameMap;
 
 void add_space(std::ostream &out, int size) { out << std::setfill(' ') << std::setw(size) << " "; }
 
-void add_comment(std::ostream &out, cstring str, std::string_view sep = "") {
+void add_comment(std::ostream &out, cstring str, absl::string_view sep = "") {
     if (origNameMap.count(str)) {
         out << sep << ";oldname:" << origNameMap.at(str) << "\n";
     }

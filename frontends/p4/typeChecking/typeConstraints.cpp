@@ -173,7 +173,7 @@ bool TypeConstraint::reportErrorImpl(const TypeVariableSubstitution *subst,
     }
 
     // Indent each string in the message
-    std::vector<std::string_view> lines = absl::StrSplit(message, '\n');
+    std::vector<absl::string_view> lines = absl::StrSplit(message, '\n');
     bool lastIsEmpty = lines.back().empty();
     if (lastIsEmpty)
         // We don't want to indent an empty line.

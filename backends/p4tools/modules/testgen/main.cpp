@@ -12,7 +12,7 @@
 using namespace P4;
 
 std::string updateErrorMsg(std::string errorMsg) {
-    for (const std::string_view toReplace : {"Compiler", "compiler"}) {
+    for (const absl::string_view toReplace : {"Compiler", "compiler"}) {
         if (const auto pos = errorMsg.find(toReplace); pos != std::string::npos) {
             errorMsg.replace(pos, toReplace.size(), "P4Testgen");
             break;

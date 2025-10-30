@@ -110,19 +110,19 @@ class P4ParserDriver final : public AbstractParserDriver {
      *                    set the initial source location.
      * @returns a P4Program object if parsing was successful, or null otherwise.
      */
-    static const IR::P4Program *parse(std::istream &in, std::string_view sourceFile,
+    static const IR::P4Program *parse(std::istream &in, absl::string_view sourceFile,
                                       unsigned sourceLine = 1);
-    static const IR::P4Program *parse(FILE *in, std::string_view sourceFile,
+    static const IR::P4Program *parse(FILE *in, absl::string_view sourceFile,
                                       unsigned sourceLine = 1);
 
     /// Parses the input and returns a pair with the P4Program and InputSources.
     /// Use this when both the parsed P4Program and InputSources are required,
     /// as opposed to the `parse` method, which only returns the P4Program.
     static std::pair<const IR::P4Program *, const Util::InputSources *> parseProgramSources(
-        std::istream &in, std::string_view sourceFile, unsigned sourceLine = 1);
+        std::istream &in, absl::string_view sourceFile, unsigned sourceLine = 1);
 
     static std::pair<const IR::P4Program *, const Util::InputSources *> parseProgramSources(
-        FILE *in, std::string_view sourceFile, unsigned sourceLine = 1);
+        FILE *in, absl::string_view sourceFile, unsigned sourceLine = 1);
 
     /**
      * Parses a P4-16 annotation body.
@@ -213,7 +213,7 @@ class P4ParserDriver final : public AbstractParserDriver {
     P4ParserDriver();
 
     /// Common functionality for parsing.
-    bool parse(AbstractP4Lexer &lexer, std::string_view sourceFile, unsigned sourceLine = 1);
+    bool parse(AbstractP4Lexer &lexer, absl::string_view sourceFile, unsigned sourceLine = 1);
 
     /// Common functionality for parsing annotation bodies.
     template <typename T>
@@ -249,9 +249,9 @@ class V1ParserDriver final : public P4::AbstractParserDriver {
      *                    set the initial source location.
      * @returns a V1Program object if parsing was successful, or null otherwise.
      */
-    static const IR::V1Program *parse(std::istream &in, std::string_view sourceFile,
+    static const IR::V1Program *parse(std::istream &in, absl::string_view sourceFile,
                                       unsigned sourceLine = 1);
-    static const IR::V1Program *parse(FILE *in, std::string_view sourceFile,
+    static const IR::V1Program *parse(FILE *in, absl::string_view sourceFile,
                                       unsigned sourceLine = 1);
 
  protected:

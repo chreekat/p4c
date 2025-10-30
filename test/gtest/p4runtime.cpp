@@ -1277,7 +1277,7 @@ TEST_F(P4Runtime, ValueSet) {
 
     using MatchField = p4configv1::MatchField;
     auto checkMatchField = [](const p4configv1::MatchField &mf, unsigned int id,
-                              std::string_view name, const std::vector<cstring> &annotations,
+                              absl::string_view name, const std::vector<cstring> &annotations,
                               int bitwidth, std::optional<MatchField::MatchType> matchType,
                               std::optional<cstring> otherMatchType) {
         EXPECT_EQ(mf.id(), id);
@@ -1978,7 +1978,7 @@ TEST_F(P4RuntimeDataTypeSpec, StructWithTypedef) {
     auto it = typeInfo.structs().find("my_struct");
     ASSERT_TRUE(it != typeInfo.structs().end());
     ASSERT_EQ(2, it->second.members_size());
-    auto checkMember = [&](std::string_view name, int index) {
+    auto checkMember = [&](absl::string_view name, int index) {
         EXPECT_EQ(name, it->second.members(index).name());
         const auto &memberTypeSpec = it->second.members(index).type_spec();
         ASSERT_TRUE(memberTypeSpec.has_bitstring());
@@ -2012,7 +2012,7 @@ TEST_F(P4RuntimeDataTypeSpec, NewType) {
     ASSERT_TRUE(it != typeInfo.structs().end());
     ASSERT_EQ(2, it->second.members_size());
 
-    auto checkMember = [&](std::string_view memberName, int index, std::string_view newTypeName) {
+    auto checkMember = [&](absl::string_view memberName, int index, absl::string_view newTypeName) {
         EXPECT_EQ(memberName, it->second.members(index).name());
         const auto &memberTypeSpec = it->second.members(index).type_spec();
         ASSERT_TRUE(memberTypeSpec.has_new_type());

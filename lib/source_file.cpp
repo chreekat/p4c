@@ -100,7 +100,7 @@ unsigned InputSources::lineCount() const {
 }
 
 // Append this text to the last line
-void InputSources::appendToLastLine(std::string_view text) {
+void InputSources::appendToLastLine(absl::string_view text) {
     if (sealed) BUG("Appending to sealed InputSources");
     // Text should not contain any newline characters
     for (size_t i = 0; i < text.size(); i++) {
@@ -111,7 +111,7 @@ void InputSources::appendToLastLine(std::string_view text) {
 }
 
 // Append a newline and start a new line
-void InputSources::appendNewline(std::string_view newline) {
+void InputSources::appendNewline(absl::string_view newline) {
     if (sealed) BUG("Appending to sealed InputSources");
     contents.back() += newline;
     contents.push_back("");  // start a new line
@@ -119,18 +119,18 @@ void InputSources::appendNewline(std::string_view newline) {
 
 void InputSources::appendText(const char *text) {
     if (text == nullptr) BUG("Null text being appended");
-    std::string_view ref(text);
+    absl::string_view ref(text);
 
     while (ref.size() > 0) {
         auto nlPos = ref.find_first_of("\r\n");
-        if (nlPos == std::string_view::npos) {
+        if (nlPos == absl::string_view::npos) {
             appendToLastLine(ref);
             break;
         }
 
         size_t toCut = nlPos;
         if (toCut != 0) {
-            std::string_view nonnl(ref.data(), toCut);
+            absl::string_view nonnl(ref.data(), toCut);
             appendToLastLine(nonnl);
             ref.remove_prefix(toCut);
         } else {
@@ -149,7 +149,7 @@ void InputSources::appendText(const char *text) {
     }
 }
 
-std::string_view InputSources::getLine(unsigned lineNumber) const {
+absl::string_view InputSources::getLine(unsigned lineNumber) const {
     if (lineNumber == 0) {
         return "";
         // BUG("Lines are numbered starting at 1");
@@ -159,7 +159,7 @@ std::string_view InputSources::getLine(unsigned lineNumber) const {
     return contents.at(lineNumber - 1);
 }
 
-void InputSources::mapLine(std::string_view file, unsigned originalSourceLineNo) {
+void InputSources::mapLine(absl::string_view file, unsigned originalSourceLineNo) {
     if (sealed) BUG("Changing mapping to sealed InputSources");
     unsigned lineno = getCurrentLineNumber();
     line_file_map.emplace(lineno, SourceFileLine(file, originalSourceLineNo));
@@ -200,7 +200,7 @@ cstring InputSources::getSourceFragment(const SourcePosition &position, int trim
     return getSourceFragment(info, trimWidth, useMarker);
 }
 
-static std::string carets(std::string_view source, unsigned start, unsigned end) {
+static std::string carets(absl::string_view source, unsigned start, unsigned end) {
     std::stringstream builder;
     if (start > source.size()) start = source.size();
 
@@ -228,7 +228,7 @@ cstring InputSources::getSourceFragment(const SourceInfo &position, int trimWidt
     if (position.getEnd().getLineNumber() > position.getStart().getLineNumber())
         return getSourceFragment(position.getStart(), trimWidth, useMarker);
 
-    std::string_view result = getLine(position.getStart().getLineNumber());
+    absl::string_view result = getLine(position.getStart().getLineNumber());
     unsigned int start = position.getStart().getColumnNumber();
     unsigned int end = position.getEnd().getColumnNumber();
     if (trimWidth == -1) {
@@ -278,7 +278,7 @@ cstring InputSources::getSourceFragment(const SourceInfo &position, int trimWidt
 cstring InputSources::getBriefSourceFragment(const SourceInfo &position) const {
     if (!position.isValid()) return ""_cs;
 
-    std::string_view result = getLine(position.getStart().getLineNumber());
+    absl::string_view result = getLine(position.getStart().getLineNumber());
     unsigned int start = position.getStart().getColumnNumber();
     unsigned int end = position.getEnd().getColumnNumber();
     bool truncate = false;

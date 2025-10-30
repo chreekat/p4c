@@ -227,7 +227,7 @@ class FlattenHeader : public Modifier {
     std::vector<cstring> nameSegments{};
     std::vector<IR::Vector<IR::Annotation>> allAnnotations{};
     std::vector<Util::SourceInfo> srcInfos{};
-    cstring makeName(std::string_view sep) const;
+    cstring makeName(absl::string_view sep) const;
     void flattenType(const IR::Type *type);
     IR::Vector<IR::Annotation> mergeAnnotations() const;
 
@@ -235,12 +235,12 @@ class FlattenHeader : public Modifier {
     std::vector<cstring> memberSegments{};
     std::map<cstring, cstring> fieldNameMap;
     std::map<cstring, std::tuple<const IR::Expression *, cstring>> replacementMap;
-    cstring makeMember(std::string_view sep) const;
+    cstring makeMember(absl::string_view sep) const;
     void flattenMember(const IR::Member *member);
     const IR::Member *doFlattenMember(const IR::Member *member);
 
     std::vector<cstring> pathSegments{};
-    cstring makePath(std::string_view sep) const;
+    cstring makePath(absl::string_view sep) const;
     void flattenStructInitializer(const IR::StructExpression *e,
                                   IR::IndexedVector<IR::NamedExpression> *c);
     IR::StructExpression *doFlattenStructInitializer(const IR::StructExpression *e);

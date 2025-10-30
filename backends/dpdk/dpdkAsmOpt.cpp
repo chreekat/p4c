@@ -370,11 +370,11 @@ int EmitDpdkTableConfig::getTypeWidth(const IR::Type *type, P4::TypeMap *typeMap
     return typeMap->widthBits(type, type->getNode(), false);
 }
 
-void EmitDpdkTableConfig::print(std::string_view str, std::string_view sep) {
+void EmitDpdkTableConfig::print(absl::string_view str, absl::string_view sep) {
     dpdkTableConfigFile << str << sep;
 }
 
-void EmitDpdkTableConfig::print(big_int str, std::string_view sep) {
+void EmitDpdkTableConfig::print(big_int str, absl::string_view sep) {
     try {
         dpdkTableConfigFile << "0x" << std::hex << str << sep;
     } catch (const std::runtime_error &re) {

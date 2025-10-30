@@ -512,7 +512,7 @@ int run(int ac, char **av) {
 /// TODO: Consider implementing a new exception type instead?
 /// We are not calling much into top-level compiler utilities.
 std::string updateErrorMsg(std::string errorMsg) {
-    for (const std::string_view toReplace : {"Compiler", "compiler"}) {
+    for (const absl::string_view toReplace : {"Compiler", "compiler"}) {
         if (const auto pos = errorMsg.find(toReplace); pos != std::string::npos) {
             errorMsg.replace(pos, toReplace.size(), "Assembler");
             break;

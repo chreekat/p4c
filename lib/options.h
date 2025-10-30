@@ -85,7 +85,7 @@ class Options {
                         const char *description,    // option help message
                         OptionFlags flags = OptionFlags::Default);  // additional flags
 
-    explicit Options(std::string_view message)
+    explicit Options(absl::string_view message)
         : binaryName(nullptr), message(message), compileCommand("") {}
     virtual ~Options() = default;
 

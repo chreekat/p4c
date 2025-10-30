@@ -93,7 +93,7 @@ void ReferenceMap::dbprint(std::ostream &out) const {
     for (auto e : pathToDeclaration) out << dbp(e.first) << "->" << dbp(e.second) << std::endl;
 }
 
-cstring ReferenceMap::newName(std::string_view base) {
+cstring ReferenceMap::newName(absl::string_view base) {
     // Maybe in the future we'll maintain information with per-scope identifiers,
     // but today we are content to generate globally-unique identifiers.
 
@@ -115,7 +115,7 @@ cstring ReferenceMap::newName(std::string_view base) {
     return name;
 }
 
-cstring MinimalNameGenerator::newName(std::string_view base) {
+cstring MinimalNameGenerator::newName(absl::string_view base) {
     // Maybe in the future we'll maintain information with per-scope identifiers,
     // but today we are content to generate globally-unique identifiers.
 

@@ -33,10 +33,10 @@ limitations under the License.
 namespace P4 {
 namespace detail {
 
-static inline std::pair<std::string_view, std::string> getPositionTail(const Util::SourceInfo &info,
-                                                                       std::string_view position,
-                                                                       std::string_view tail) {
-    std::string_view posString = info.toPositionString();
+static inline std::pair<absl::string_view, std::string> getPositionTail(const Util::SourceInfo &info,
+                                                                       absl::string_view position,
+                                                                       absl::string_view tail) {
+    absl::string_view posString = info.toPositionString();
     std::string outTail(tail);
     if (position.empty()) {
         position = posString;
@@ -50,8 +50,8 @@ static inline std::pair<std::string_view, std::string> getPositionTail(const Uti
 }
 
 template <typename T>
-std::pair<std::string_view, std::string> maybeAddSourceInfo(const T &t, std::string_view position,
-                                                            std::string_view tail) {
+std::pair<absl::string_view, std::string> maybeAddSourceInfo(const T &t, absl::string_view position,
+                                                            absl::string_view tail) {
     if constexpr (Util::has_SourceInfo_v<T>)
         return getPositionTail(t.getSourceInfo(), position, tail);
 
@@ -60,27 +60,27 @@ std::pair<std::string_view, std::string> maybeAddSourceInfo(const T &t, std::str
     return {"", ""};
 }
 
-static inline std::string bug_helper(boost::format &f, std::string_view position,
-                                     std::string_view tail) {
+static inline std::string bug_helper(boost::format &f, absl::string_view position,
+                                     absl::string_view tail) {
     return absl::StrCat(position, position.empty() ? "" : ": ", boost::str(f), "\n", tail);
 }
 
 template <typename T, class... Args>
-auto bug_helper(boost::format &f, std::string_view position, std::string_view tail, const T *t,
+auto bug_helper(boost::format &f, absl::string_view position, absl::string_view tail, const T *t,
                 Args &&...args);
 
 template <typename T, class... Args>
-auto bug_helper(boost::format &f, std::string_view position, std::string_view tail, const T &t,
+auto bug_helper(boost::format &f, absl::string_view position, absl::string_view tail, const T &t,
                 Args &&...args) -> std::enable_if_t<!std::is_pointer_v<T>, std::string>;
 
 template <class... Args>
-std::string bug_helper(boost::format &f, std::string_view position, std::string_view tail,
+std::string bug_helper(boost::format &f, absl::string_view position, absl::string_view tail,
                        const char *t, Args &&...args) {
     return bug_helper(f % t, position, tail, std::forward<Args>(args)...);
 }
 
 template <class... Args>
-std::string bug_helper(boost::format &f, std::string_view position, std::string_view tail,
+std::string bug_helper(boost::format &f, absl::string_view position, absl::string_view tail,
                        const Util::SourceInfo &info, Args &&...args) {
     auto [outPos, outTail] = detail::getPositionTail(info, position, tail);
     return bug_helper(f % "", outPos, outTail, std::forward<Args>(args)...);
@@ -105,7 +105,7 @@ std::ostream &operator<<(std::ostream &os, const DbprintDispatchPtr<T> &dispatch
 }
 
 template <typename T, class... Args>
-auto bug_helper(boost::format &f, std::string_view position, std::string_view tail, const T *t,
+auto bug_helper(boost::format &f, absl::string_view position, absl::string_view tail, const T *t,
                 Args &&...args) {
     if (t == nullptr) return bug_helper(f, position, tail, std::forward<Args>(args)...);
 
@@ -132,7 +132,7 @@ std::ostream &operator<<(std::ostream &os, const DbprintDispatchRef<T> &dispatch
 }
 
 template <typename T, class... Args>
-auto bug_helper(boost::format &f, std::string_view position, std::string_view tail, const T &t,
+auto bug_helper(boost::format &f, absl::string_view position, absl::string_view tail, const T &t,
                 Args &&...args) -> std::enable_if_t<!std::is_pointer_v<T>, std::string> {
     auto [outPos, outTail] = maybeAddSourceInfo(t, position, tail);
     return bug_helper(f % DbprintDispatchRef<T>{t}, outPos, outTail, std::forward<Args>(args)...);
@@ -141,7 +141,7 @@ auto bug_helper(boost::format &f, std::string_view position, std::string_view ta
 
 // Most direct invocations of bug_helper usually only reduce arguments
 template <class... Args>
-std::string bug_helper(boost::format &f, std::string_view position, std::string_view tail,
+std::string bug_helper(boost::format &f, absl::string_view position, absl::string_view tail,
                        Args &&...args) {
     return detail::bug_helper(f, position, tail, std::forward<Args>(args)...);
 }

@@ -62,7 +62,7 @@ struct ID : Util::IHasSourceInfo, public IHasDbPrint {
     explicit operator bool() const { return name.c_str() != nullptr; }
     operator cstring() const { return name; }
     std::string string() const { return name.string(); }
-    std::string_view string_view() const { return name.string_view(); }
+    absl::string_view string_view() const { return name.string_view(); }
     bool isDontCare() const { return name == "_"; }
     Util::SourceInfo getSourceInfo() const override { return srcInfo; }
     cstring toString() const override { return originalName.isNullOrEmpty() ? name : originalName; }

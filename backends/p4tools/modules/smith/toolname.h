@@ -5,7 +5,7 @@
 
 namespace P4::P4Tools::P4Smith {
 
-static inline constexpr std::string_view TOOL_NAME = "smith";
+static inline constexpr absl::string_view TOOL_NAME = "smith";
 
 }  // namespace P4::P4Tools::P4Smith
 

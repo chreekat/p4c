@@ -59,10 +59,10 @@ struct DiagnosticCountInfoGuard {
     friend struct DiagnosticCountInfo;
 
  private:
-    DiagnosticCountInfoGuard(std::string_view componentInfo,
+    DiagnosticCountInfoGuard(absl::string_view componentInfo,
                              std::shared_ptr<DiagnosticCountInfoState> state)
         : componentInfo(componentInfo), state(state) {}
-    std::string_view componentInfo;
+    absl::string_view componentInfo;
     std::shared_ptr<DiagnosticCountInfoState> state;
 };
 
@@ -85,11 +85,11 @@ struct DiagnosticCountInfo {
     /// Emits the information like printed by the debug hook, except using componentInfo as the info
     /// at the beginning of the line: the line will be in form "<componentInfo> emitted <counts>".
     /// This is useful e.g. for printing info about diagnostics in parser.
-    void emitInfo(std::string_view componentInfo);
+    void emitInfo(absl::string_view componentInfo);
 
     /// Similar to \ref emitInfo, but prints the info at the moment the returned guard is
     /// destructed.
-    DiagnosticCountInfoGuard getInfoGuard(std::string_view componentInfo);
+    DiagnosticCountInfoGuard getInfoGuard(absl::string_view componentInfo);
 
  private:
     std::shared_ptr<DiagnosticCountInfoState> state;

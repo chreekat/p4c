@@ -27,7 +27,7 @@ class Testgen : public AbstractP4cTool<TestgenOptions> {
     /// test back end. CompilerOptions is required to invoke the correct P4 compiler. This function
     /// assumes that @param program is already preprocessed. P4Testgen will directly parse the input
     /// program.
-    static std::optional<AbstractTestList> generateTests(std::string_view program,
+    static std::optional<AbstractTestList> generateTests(absl::string_view program,
                                                          const TestgenOptions &testgenOptions);
 
     /// Invokes P4Testgen and writes a list of abstract tests to a specified output directory which
@@ -41,7 +41,7 @@ class Testgen : public AbstractP4cTool<TestgenOptions> {
     /// are generated based on the input TestgenOptions. CompilerOptions is required to invoke the
     /// correct P4 compiler. This function assumes that @param program is already preprocessed.
     /// P4Testgen will directly parse the input program.
-    static int writeTests(std::string_view program, const TestgenOptions &testgenOptions);
+    static int writeTests(absl::string_view program, const TestgenOptions &testgenOptions);
 
     virtual ~Testgen() = default;
 };

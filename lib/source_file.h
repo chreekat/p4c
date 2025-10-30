@@ -250,7 +250,7 @@ struct SourceFileLine {
     cstring fileName;
     unsigned sourceLine;
 
-    SourceFileLine(std::string_view file, unsigned line) : fileName(file), sourceLine(line) {}
+    SourceFileLine(absl::string_view file, unsigned line) : fileName(file), sourceLine(line) {}
 
     cstring toString() const;
 };
@@ -299,7 +299,7 @@ class InputSources final {
 
  public:
     InputSources();
-    std::string_view getLine(unsigned lineNumber) const;
+    absl::string_view getLine(unsigned lineNumber) const;
     /// Original source line that produced the line with the specified number
     SourceFileLine getSourceLine(unsigned line) const;
 
@@ -316,7 +316,7 @@ class InputSources final {
     /**
         Map the next line in the file to the line with number 'originalSourceLine'
         from file 'file'. */
-    void mapLine(std::string_view file, unsigned originalSourceLineNo);
+    void mapLine(absl::string_view file, unsigned originalSourceLineNo);
 
     /**
        The following return a nice (multi-line, newline-terminated)
@@ -335,9 +335,9 @@ class InputSources final {
 
  private:
     /// Append this text to the last line; must not contain newlines
-    void appendToLastLine(std::string_view text);
+    void appendToLastLine(absl::string_view text);
     /// Append a newline and start a new line
-    void appendNewline(std::string_view newline);
+    void appendNewline(absl::string_view newline);
 
     /// Input program that is being currently compiled; there can be only one.
     bool sealed;

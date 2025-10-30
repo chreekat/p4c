@@ -185,7 +185,7 @@ class JsonObject final : public IJson, public string_map<IJson *> {
     JsonObject *emplace_non_null(cstring label, IJson *value);
 
     JsonObject *emplace(cstring label, IJson *value);
-    JsonObject *emplace(std::string_view label, IJson *value);
+    JsonObject *emplace(absl::string_view label, IJson *value);
 
     template <class T, class String>
     auto emplace(String label,
@@ -195,7 +195,7 @@ class JsonObject final : public IJson, public string_map<IJson *> {
     }
 
     IJson *get(cstring label) const { return ::P4::get(*this, label); }
-    IJson *get(std::string_view label) const { return ::P4::get(*this, label); }
+    IJson *get(absl::string_view label) const { return ::P4::get(*this, label); }
     template <class T, class S>
     T *getAs(S label) const {
         return get(label)->template to<T>();

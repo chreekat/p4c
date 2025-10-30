@@ -49,7 +49,7 @@ class CallGraph {
     ordered_set<T> nodes;  // all nodes; do not modify this directly
     using const_iterator = typename ordered_map<T, std::vector<T> *>::const_iterator;
 
-    explicit CallGraph(std::string_view name) : name(name) {}
+    explicit CallGraph(absl::string_view name) : name(name) {}
 
     /// Get the name of the graph
     [[nodiscard]] const cstring &getName() const { return name; }

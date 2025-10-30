@@ -145,7 +145,7 @@ class ErrorCatalog {
     }
 
     /// return true if the given diagnostic can _only_ be an error; false otherwise
-    bool isError(std::string_view name) {
+    bool isError(absl::string_view name) {
         cstring lookup(name);
         // Some diagnostics might be both errors and warning/info
         // (e.g. "invalid" -> both ERR_INVALID and WARN_INVALID).

@@ -596,7 +596,7 @@ ExternConverter *ExternConverter::get(cstring type) {
 
 std::map<cstring, std::vector<PrimitiveConverter *>> *PrimitiveConverter::all_converters;
 
-PrimitiveConverter::PrimitiveConverter(std::string_view name, int prio)
+PrimitiveConverter::PrimitiveConverter(absl::string_view name, int prio)
     : prim_name(name), priority(prio) {
     static std::map<cstring, std::vector<PrimitiveConverter *>> converters;
     all_converters = &converters;

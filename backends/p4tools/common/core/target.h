@@ -25,7 +25,7 @@ class Target {
         std::string archName;
 
         /// Names provided to this constructor are converted to lower case.
-        Spec(std::string_view deviceName, std::string_view archName);
+        Spec(absl::string_view deviceName, absl::string_view archName);
 
         /// Lexicographic ordering on (deviceName, archName).
         bool operator<(const Spec &) const;
@@ -35,7 +35,7 @@ class Target {
     ///
     /// @returns true on success. If initialization fails, false is returned, and nothing is
     /// changed.
-    static bool init(std::string_view deviceName, std::string_view archName);
+    static bool init(absl::string_view deviceName, absl::string_view archName);
 
     /// Initializes the global target device to @deviceName without changing the architecture. If
     /// no architecture was previously selected, then the first architecture registered for the
@@ -43,7 +43,7 @@ class Target {
     ///
     /// @returns true on success. If initialization fails, false is returned, and nothing is
     /// changed.
-    static bool setDevice(std::string_view deviceName);
+    static bool setDevice(absl::string_view deviceName);
 
     /// Initializes the global target architecture to @archName without changing the device. If no
     /// device was previously selected, then the first device registered for the architecture is
@@ -51,7 +51,7 @@ class Target {
     ///
     /// @returns true on success. If initialization fails, false is returned, and nothing is
     /// changed.
-    static bool setArch(std::string_view archName);
+    static bool setArch(absl::string_view archName);
 
     /// The name of the tool supported by this instance.
     std::string toolName;
@@ -72,16 +72,16 @@ class Target {
 
     /// Initializes the global target device and architecture to @deviceName and @archName.
     /// Returns 0 on success. If initialization fails, returns -1.
-    static std::optional<ICompileContext *> initializeTarget(std::string_view toolName,
+    static std::optional<ICompileContext *> initializeTarget(absl::string_view toolName,
                                                              const std::vector<const char *> &args);
-    static std::optional<ICompileContext *> initializeTarget(std::string_view toolName,
-                                                             std::string_view target,
-                                                             std::string_view arch);
+    static std::optional<ICompileContext *> initializeTarget(absl::string_view toolName,
+                                                             absl::string_view target,
+                                                             absl::string_view arch);
 
  protected:
     /// Creates and registers a new Target instance for the given @toolName, @deviceName, and
     /// @archName.
-    Target(std::string_view toolName, const std::string &deviceName, const std::string &archName);
+    Target(absl::string_view toolName, const std::string &deviceName, const std::string &archName);
 
     /// @returns a new compilation context for the compiler.
     [[nodiscard]] virtual ICompileContext *makeContext() const = 0;
@@ -90,7 +90,7 @@ class Target {
     //
     // Implemented here because of limitations of templates.
     template <class TargetImpl>
-    static const TargetImpl &get(std::string_view toolName) {
+    static const TargetImpl &get(absl::string_view toolName) {
         if (curTarget == std::nullopt) {
             FATAL_ERROR(
                 "Target not initialized. Please provide a target using the --target option.");

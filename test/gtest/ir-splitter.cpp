@@ -34,7 +34,7 @@ struct SplitterTest : public ::testing::Test {
         return splitStatementBefore(stat, predicate, nameGen, &typeMap);
     }
 
-    const IR::Statement *parse(std::string_view code, std::string_view decs = "") {
+    const IR::Statement *parse(absl::string_view code, absl::string_view decs = "") {
         const auto program = absl::StrCat(
             "extern void fn(); extern void f1(); extern void f2(); extern void f3(); ",
             "extern void f4(); extern void f5(); extern void f6(); extern void bar(); ",
@@ -51,26 +51,26 @@ struct SplitterTest : public ::testing::Test {
         return bs;
     }
 
-    const IR::PathExpression *pe(std::string_view name) {
+    const IR::PathExpression *pe(absl::string_view name) {
         return new IR::PathExpression(P4::cstring(name));
     }
 
     /// a = b
-    const IR::AssignmentStatement *asgn(std::string_view lhs, std::string_view rhs) {
+    const IR::AssignmentStatement *asgn(absl::string_view lhs, absl::string_view rhs) {
         return new IR::AssignmentStatement(pe(lhs), pe(rhs));
     }
 
     /// a = expr
-    const IR::AssignmentStatement *asgn(std::string_view lhs, const IR::Expression *expr) {
+    const IR::AssignmentStatement *asgn(absl::string_view lhs, const IR::Expression *expr) {
         return new IR::AssignmentStatement(pe(lhs), expr);
     }
 
     /// a == b
-    const IR::Equ *eq(std::string_view lhs, std::string_view rhs) {
+    const IR::Equ *eq(absl::string_view lhs, absl::string_view rhs) {
         return new IR::Equ(pe(lhs), pe(rhs));
     }
 
-    const IR::MethodCallStatement *call(std::string_view fn) {
+    const IR::MethodCallStatement *call(absl::string_view fn) {
         return new IR::MethodCallStatement(new IR::MethodCallExpression(pe(fn)));
     }
 

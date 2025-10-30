@@ -116,9 +116,9 @@ class cstring {
         construct_from_shared(string.data(), string.length());
     }
 
-    // construct cstring from std::string_view. Do not use if possible, this is linear
+    // construct cstring from absl::string_view. Do not use if possible, this is linear
     // time operation if string not exists in table, because the underlying string must be copied.
-    explicit cstring(std::string_view string) {
+    explicit cstring(absl::string_view string) {
         construct_from_shared(string.data(), string.length());
     }
 
@@ -154,9 +154,9 @@ class cstring {
     }
 
     /// @return true if a given string is interned (contained in cstring cache)
-    static bool is_cached(std::string_view s);
+    static bool is_cached(absl::string_view s);
     /// @return corresponding cstring if it was interned, null cstring otherwise
-    static cstring get_cached(std::string_view s);
+    static cstring get_cached(absl::string_view s);
 
  private:
     // passed string is shared, we not unique owners
@@ -188,10 +188,10 @@ class cstring {
     std::string string() const { return str ? std::string(str) : std::string(""); }
     explicit operator std::string() const { return string(); }
 
-    std::string_view string_view() const {
-        return str ? std::string_view(str) : std::string_view("");
+    absl::string_view string_view() const {
+        return str ? absl::string_view(str) : absl::string_view("");
     }
-    operator std::string_view() const { return string_view(); }
+    operator absl::string_view() const { return string_view(); }
 
     // Size tests. Constant time except for size(), which is linear time.
     size_t size() const {
@@ -233,8 +233,8 @@ class cstring {
     bool operator>(const char *a) const { return str ? !a || strcmp(str, a) > 0 : false; }
     bool operator>=(cstring a) const { return *this >= a.str; }
     bool operator>=(const char *a) const { return str ? !a || strcmp(str, a) >= 0 : !a; }
-    bool operator==(std::string_view a) const { return str ? a.compare(str) == 0 : a.empty(); }
-    bool operator!=(std::string_view a) const { return str ? a.compare(str) != 0 : !a.empty(); }
+    bool operator==(absl::string_view a) const { return str ? a.compare(str) == 0 : a.empty(); }
+    bool operator!=(absl::string_view a) const { return str ? a.compare(str) != 0 : !a.empty(); }
 
     bool operator==(const std::string &a) const { return *this == a.c_str(); }
     bool operator!=(const std::string &a) const { return *this != a.c_str(); }
@@ -243,8 +243,8 @@ class cstring {
     bool operator>(const std::string &a) const { return *this > a.c_str(); }
     bool operator>=(const std::string &a) const { return *this >= a.c_str(); }
 
-    bool startsWith(std::string_view prefix) const;
-    bool endsWith(std::string_view suffix) const;
+    bool startsWith(absl::string_view prefix) const;
+    bool endsWith(absl::string_view suffix) const;
 
     // FIXME (DanilLutsenko): We really need mutations for immutable string?
     // Probably better do transformation in std::string-like containter and
@@ -265,7 +265,7 @@ class cstring {
     }
     cstring substr(size_t start, size_t length) const;
     cstring replace(char find, char replace) const;
-    cstring replace(std::string_view find, std::string_view replace) const;
+    cstring replace(absl::string_view find, absl::string_view replace) const;
     cstring exceptLast(size_t count) { return substr(0, size() - count); }
 
     // trim leading and trailing whitespace (or other)

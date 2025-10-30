@@ -28,7 +28,7 @@ namespace P4 {
 
 class NameGenerator {
  public:
-    virtual cstring newName(std::string_view base) = 0;
+    virtual cstring newName(absl::string_view base) = 0;
     virtual ~NameGenerator() = default;
 };
 
@@ -49,7 +49,7 @@ class MinimalNameGenerator : public NameGenerator, public Inspector {
     }
 
     /// Generate a name from @p base that does not appear in usedNames.
-    cstring newName(std::string_view base) override;
+    cstring newName(absl::string_view base) override;
 };
 
 // FIXME -- temp common base class to allow use of ReferenceMap or ResolutionContext
@@ -107,7 +107,7 @@ class ReferenceMap final : public ProgramMap, public NameGenerator, public Decla
     void setAnyOrder(bool anyOrder) { this->isv1 = anyOrder; }
 
     /// Generate a name from @p base that fresh for the program.
-    cstring newName(std::string_view base) override;
+    cstring newName(absl::string_view base) override;
 
     /// Clear the reference map
     void clear();

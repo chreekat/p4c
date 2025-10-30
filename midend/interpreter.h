@@ -214,7 +214,7 @@ class SymbolicException : public SymbolicError {
 class SymbolicStaticError : public SymbolicError {
  public:
     const std::string msg;
-    SymbolicStaticError(const IR::Node *errorPosition, std::string_view message)
+    SymbolicStaticError(const IR::Node *errorPosition, absl::string_view message)
         : SymbolicError(errorPosition), msg(message) {}
     SymbolicValue *clone() const override { return new SymbolicStaticError(errorPosition, msg); }
     void dbprint(std::ostream &out) const override { out << "Error: " << msg; }

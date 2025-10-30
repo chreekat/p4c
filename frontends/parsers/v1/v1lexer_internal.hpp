@@ -31,15 +31,15 @@ class V1Lexer : public v1FlexLexer {
      */
     virtual Token yylex(V1::V1ParserDriver &driver);
 
-    static constexpr std::string_view trim(std::string_view in,
-                                           std::string_view white = " \n\r\t\v") {
+    static constexpr absl::string_view trim(absl::string_view in,
+                                           absl::string_view white = " \n\r\t\v") {
         auto left = in.find_first_not_of(white);
-        if (left == std::string_view::npos) return {};
+        if (left == absl::string_view::npos) return {};
 
         in.remove_prefix(left);
 
         auto right = in.find_last_not_of(white);
-        if (right == std::string_view::npos) return {};
+        if (right == absl::string_view::npos) return {};
 
         in.remove_suffix(in.size() - right - 1);
         return in;

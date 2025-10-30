@@ -13,7 +13,7 @@
 
 namespace P4::P4Tools {
 
-Target::Spec::Spec(std::string_view deviceName, std::string_view archName)
+Target::Spec::Spec(absl::string_view deviceName, absl::string_view archName)
     : deviceName(absl::AsciiStrToLower(deviceName)), archName(absl::AsciiStrToLower(archName)) {}
 
 bool Target::Spec::operator<(const Spec &other) const {
@@ -32,7 +32,7 @@ std::map<Target::Spec, std::map<std::string, const Target *, std::less<>>> Targe
 std::map<std::string, std::string, std::less<>> Target::defaultArchByDevice = {};
 std::map<std::string, std::string, std::less<>> Target::defaultDeviceByArch = {};
 
-bool Target::init(std::string_view deviceName, std::string_view archName) {
+bool Target::init(absl::string_view deviceName, absl::string_view archName) {
     Spec spec(deviceName, archName);
 
     if (registry.count(spec) != 0U) {
@@ -43,9 +43,9 @@ bool Target::init(std::string_view deviceName, std::string_view archName) {
     return false;
 }
 
-std::optional<ICompileContext *> Target::initializeTarget(std::string_view toolName,
-                                                          std::string_view target,
-                                                          std::string_view arch) {
+std::optional<ICompileContext *> Target::initializeTarget(absl::string_view toolName,
+                                                          absl::string_view target,
+                                                          absl::string_view arch) {
     // Establish a dummy compilation context so that we can use ::error to report errors while
     // processing target and arch.
     class DummyCompileContext : public BaseCompileContext {
@@ -67,7 +67,7 @@ std::optional<ICompileContext *> Target::initializeTarget(std::string_view toolN
     return instance->second->makeContext();
 }
 
-std::optional<ICompileContext *> Target::initializeTarget(std::string_view toolName,
+std::optional<ICompileContext *> Target::initializeTarget(absl::string_view toolName,
                                                           const std::vector<const char *> &args) {
     // Establish a dummy compilation context so that we can use ::error to report errors while
     // processing target and arch.
@@ -111,7 +111,7 @@ std::optional<ICompileContext *> Target::initializeTarget(std::string_view toolN
     return initializeTarget(toolName, target.value(), arch.value());
 }
 
-bool Target::setDevice(std::string_view deviceName) {
+bool Target::setDevice(absl::string_view deviceName) {
     std::string lowerCaseDeviceName(absl::AsciiStrToLower(deviceName));
     auto archList = defaultArchByDevice.find(lowerCaseDeviceName);
     if (archList == defaultArchByDevice.end()) {
@@ -121,7 +121,7 @@ bool Target::setDevice(std::string_view deviceName) {
     return init(lowerCaseDeviceName, curTarget ? curTarget->archName : archList->second);
 }
 
-bool Target::setArch(std::string_view archName) {
+bool Target::setArch(absl::string_view archName) {
     std::string lowerCaseArchName(absl::AsciiStrToLower(archName));
     std::transform(lowerCaseArchName.begin(), lowerCaseArchName.end(), lowerCaseArchName.begin(),
                    ::tolower);
@@ -140,7 +140,7 @@ const IR::Expression *Target::createTargetUninitialized(const IR::Type *type,
     return IR::getDefaultValue(type);
 }
 
-Target::Target(std::string_view toolName, const std::string &deviceName,
+Target::Target(absl::string_view toolName, const std::string &deviceName,
                const std::string &archName)
     : toolName(toolName), spec(deviceName, archName) {
     // Register this instance.

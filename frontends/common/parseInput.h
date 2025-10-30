@@ -30,7 +30,7 @@ class P4Program;
 namespace P4 {
 
 template <typename Input, typename C = P4V1::Converter>
-static const IR::P4Program *parseV1Program(Input stream, std::string_view sourceFile,
+static const IR::P4Program *parseV1Program(Input stream, absl::string_view sourceFile,
                                            unsigned sourceLine,
                                            std::optional<DebugHook> debugHook = std::nullopt) {
     // We load the model before parsing the input file, so that the SourceInfo

@@ -242,7 +242,7 @@ class ErrorReporter {
     }
 
     /// Set the action to take for the given diagnostic.
-    void setDiagnosticAction(std::string_view diagnostic, DiagnosticAction action) {
+    void setDiagnosticAction(absl::string_view diagnostic, DiagnosticAction action) {
         diagnosticActions[cstring(diagnostic)] = action;
     }
 

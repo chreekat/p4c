@@ -187,7 +187,7 @@ void HashActionTable::gen_tbl_cfg(json::vector &out) const {
     // FIXME: Support multiple hash_dist's
     int size = hash_dist.empty() ? 1 : 1 + hash_dist[0].mask;
     json::map &tbl = *base_tbl_cfg(out, "match_entry", size);
-    std::string_view stage_tbl_type = "match_with_no_key";
+    absl::string_view stage_tbl_type = "match_with_no_key";
     size = 1;
     if (p4_table && p4_table->p4_stage_table_type() == "gateway_with_entries") {
         stage_tbl_type = "gateway_with_entries";

@@ -190,7 +190,7 @@ static inline void addOneOf(Util::JsonArray *dataJson, Util::JsonArray *choicesJ
     dataJson->append(oneOfJson);
 }
 
-// FIXME: Switch to std::string_view
+// FIXME: Switch to absl::string_view
 static inline std::optional<cstring> transformMatchType(
     p4configv1::MatchField_MatchType matchType) {
     switch (matchType) {
@@ -211,7 +211,7 @@ static inline std::optional<cstring> transformMatchType(
     }
 }
 
-// FIXME: Switch to std::string_view
+// FIXME: Switch to absl::string_view
 static inline std::optional<cstring> transformOtherMatchType(std::string matchType) {
     if (matchType == "atcam_partition_index") return "ATCAM"_cs;
     if (matchType == "dleft_hash") return "DLEFT_HASH"_cs;

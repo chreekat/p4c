@@ -20,7 +20,7 @@ limitations under the License.
 
 namespace P4 {
 
-CompilerOptions::CompilerOptions(std::string_view defaultMessage) : ParserOptions(defaultMessage) {
+CompilerOptions::CompilerOptions(absl::string_view defaultMessage) : ParserOptions(defaultMessage) {
     registerOption(
         "--excludeFrontendPasses", "pass1[,pass2]",
         [this](const char *arg) {

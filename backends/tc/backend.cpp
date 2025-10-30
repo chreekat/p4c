@@ -633,7 +633,7 @@ void ConvertToBackendIR::updateAddOnMissTable(const IR::P4Table *t) {
     }
 }
 
-unsigned ConvertToBackendIR::GetAccessNumericValue(std::string_view access) {
+unsigned ConvertToBackendIR::GetAccessNumericValue(absl::string_view access) {
     unsigned value = 0;
     for (auto s : access) {
         unsigned mask = 0;

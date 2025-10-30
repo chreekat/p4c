@@ -55,10 +55,10 @@ bool Token::isOneOf(Token::Kind k1, Token::Kind k2, Ts... ks) const noexcept {
 }
 
 /// The function to get lexeme from token
-std::string_view Token::lexeme() const noexcept { return m_lexeme; }
+absl::string_view Token::lexeme() const noexcept { return m_lexeme; }
 
 /// The function to replace the token lexeme with another lexeme
-void Token::lexeme(std::string_view lexeme) noexcept { m_lexeme = lexeme; }
+void Token::lexeme(absl::string_view lexeme) noexcept { m_lexeme = lexeme; }
 
 /// Function to get the current character
 char Lexer::peek() const noexcept { return *mBeg; }

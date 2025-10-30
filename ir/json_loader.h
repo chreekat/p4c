@@ -68,7 +68,7 @@ class JSONLoader {
         json = json_root.get();
     }
 
-    JSONLoader(const JSONLoader &unpacker, std::string_view field)
+    JSONLoader(const JSONLoader &unpacker, absl::string_view field)
         : node_refs(unpacker.node_refs), json(nullptr) {
         if (!unpacker) return;
         if (auto *obj = unpacker.json->to<JsonObject>()) {
@@ -396,7 +396,7 @@ class JSONLoader {
     }
 
     template <typename T>
-    bool load(std::string_view field, T *&v) {
+    bool load(absl::string_view field, T *&v) {
         if (auto loader = JSONLoader(*this, field)) {
             loader.unpack_json(v);
             return true;
@@ -407,7 +407,7 @@ class JSONLoader {
     }
 
     template <typename T>
-    bool load(std::string_view field, T &v) {
+    bool load(absl::string_view field, T &v) {
         if (auto loader = JSONLoader(*this, field)) {
             loader.unpack_json(v);
             return true;

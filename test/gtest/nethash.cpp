@@ -24,7 +24,7 @@ struct Hex {
 };
 
 template <auto fn>
-auto apply(std::string_view str) {
+auto apply(absl::string_view str) {
     return Hex(fn(reinterpret_cast<const uint8_t *>(str.data()), str.size()));
 }
 

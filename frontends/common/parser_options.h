@@ -63,7 +63,7 @@ class ParserOptions : public Util::Options {
     virtual std::unique_ptr<ToP4> getToP4(std::ostream *, bool, std::filesystem::path) const;
 
  public:
-    explicit ParserOptions(std::string_view defaultMessage = "Parse a P4 program");
+    explicit ParserOptions(absl::string_view defaultMessage = "Parse a P4 program");
 
     std::vector<const char *> *process(int argc, char *const argv[]) override;
     enum class FrontendVersion { P4_14, P4_16 };
@@ -157,7 +157,7 @@ class P4CContext : public BaseCompileContext {
     }
 
     /// Set the action to take for the given diagnostic.
-    void setDiagnosticAction(std::string_view diagnostic, DiagnosticAction action) {
+    void setDiagnosticAction(absl::string_view diagnostic, DiagnosticAction action) {
         errorReporter().setDiagnosticAction(diagnostic, action);
     }
 

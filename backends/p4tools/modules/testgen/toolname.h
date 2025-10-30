@@ -5,7 +5,7 @@
 
 namespace P4::P4Tools::P4Testgen {
 
-static inline constexpr std::string_view TOOL_NAME = "testgen";
+static inline constexpr absl::string_view TOOL_NAME = "testgen";
 
 }  // namespace P4::P4Tools::P4Testgen
 

@@ -37,7 +37,7 @@ struct DiagnosticCountInfoState {
           lastWarningCount(ctxt.errorReporter().getWarningCount()),
           lastInfoCount(ctxt.errorReporter().getInfoCount()) {}
 
-    void info(std::string_view componentInfo) {
+    void info(absl::string_view componentInfo) {
         if (!Log::fileLogLevelIsAtLeast(DIAGNOSTIC_COUNT_IN_PASS_TAG, 1)) return;
 
         unsigned diag = ctxt.errorReporter().getDiagnosticCount();
@@ -97,9 +97,9 @@ DiagnosticCountInfo::DiagnosticCountInfo(BaseCompileContext &ctxt)
 
 DebugHook DiagnosticCountInfo::getPassManagerHook() { return hook(state); }
 
-void DiagnosticCountInfo::emitInfo(std::string_view componentInfo) { state->info(componentInfo); }
+void DiagnosticCountInfo::emitInfo(absl::string_view componentInfo) { state->info(componentInfo); }
 
-DiagnosticCountInfoGuard DiagnosticCountInfo::getInfoGuard(std::string_view componentInfo) {
+DiagnosticCountInfoGuard DiagnosticCountInfo::getInfoGuard(absl::string_view componentInfo) {
     return {componentInfo, state};
 }
 

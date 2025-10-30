@@ -166,7 +166,7 @@ void TypeInferenceBase::addSubstitutions(const TypeVariableSubstitution *tvs) {
 
 TypeVariableSubstitution *TypeInferenceBase::unifyBase(
     bool allowCasts, const IR::Node *errorPosition, const IR::Type *destType,
-    const IR::Type *srcType, std::string_view errorFormat,
+    const IR::Type *srcType, absl::string_view errorFormat,
     std::initializer_list<const IR::Node *> errorArgs) {
     CHECK_NULL(destType);
     CHECK_NULL(srcType);

@@ -171,7 +171,7 @@ class JSONGenerator {
         if (output_state == TOP) out << std::endl;
     }
 
-    void emit_tag(std::string_view tag) {
+    void emit_tag(absl::string_view tag) {
         switch (output_state) {
             case OBJ_START:
                 out << '{' << std::endl << ++indent;
@@ -191,7 +191,7 @@ class JSONGenerator {
     }
 
     template <typename T>
-    void emit(std::string_view tag, const T &val) {
+    void emit(absl::string_view tag, const T &val) {
         emit_tag(tag);
         generate(val);
         output_state = OBJ_MID;

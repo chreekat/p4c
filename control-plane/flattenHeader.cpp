@@ -50,7 +50,7 @@ void FlattenHeader::doFlatten(const IR::Type *type) {
     }
 }
 
-cstring FlattenHeader::makeName(std::string_view sep) const {
+cstring FlattenHeader::makeName(absl::string_view sep) const {
     std::string name;
     for (auto n : nameSegments) {
         name += sep;

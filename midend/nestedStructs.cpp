@@ -21,7 +21,7 @@ bool ComplexValues::isNestedStruct(const IR::Type *type) const {
 }
 
 template <class T>
-void ComplexValues::explode(std::string_view prefix, const IR::Type_Struct *type, FieldsMap *map,
+void ComplexValues::explode(absl::string_view prefix, const IR::Type_Struct *type, FieldsMap *map,
                             IR::Vector<T> *result) {
     CHECK_NULL(type);
     for (const auto *f : type->fields) {

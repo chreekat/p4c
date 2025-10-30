@@ -190,8 +190,8 @@ struct Hasher<std::string> {
 };
 
 template <>
-struct Hasher<std::string_view> {
-    size_t operator()(const std::string_view &val) const {
+struct Hasher<absl::string_view> {
+    size_t operator()(const absl::string_view &val) const {
         return static_cast<size_t>(hash(val.data(), val.size()));
     }
 };

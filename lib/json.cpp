@@ -189,7 +189,7 @@ JsonObject *JsonObject::emplace(cstring label, IJson *value) {
     return this;
 }
 
-JsonObject *JsonObject::emplace(std::string_view label, IJson *value) {
+JsonObject *JsonObject::emplace(absl::string_view label, IJson *value) {
     if (label.empty()) throw std::logic_error("Empty label");
     auto j = get(label);
     if (j != nullptr) {

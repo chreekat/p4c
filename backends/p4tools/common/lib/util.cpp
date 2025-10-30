@@ -121,7 +121,7 @@ const IR::Constant *Utils::getRandConstantForType(const IR::Type_Bits *type) {
  * ========================================================================================= */
 
 const IR::MethodCallExpression *Utils::generateInternalMethodCall(
-    std::string_view methodName, const std::vector<const IR::Expression *> &argVector,
+    absl::string_view methodName, const std::vector<const IR::Expression *> &argVector,
     const IR::Type *returnType, const IR::ParameterList *paramList) {
     auto *args = new IR::Vector<IR::Argument>();
     for (const auto *expr : argVector) {

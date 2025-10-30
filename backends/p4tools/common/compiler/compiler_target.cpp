@@ -15,7 +15,7 @@
 namespace P4::P4Tools {
 
 CompilerResultOrError CompilerTarget::runCompiler(const CompilerOptions &options,
-                                                  std::string_view toolName) {
+                                                  absl::string_view toolName) {
     const auto *program = P4Tools::CompilerTarget::runParser(options);
     if (program == nullptr) {
         return std::nullopt;
@@ -25,7 +25,7 @@ CompilerResultOrError CompilerTarget::runCompiler(const CompilerOptions &options
 }
 
 CompilerResultOrError CompilerTarget::runCompiler(const CompilerOptions &options,
-                                                  std::string_view toolName,
+                                                  absl::string_view toolName,
                                                   const std::string &source) {
     const auto *program = parseP4String(source, options.langVersion);
     if (program == nullptr) {
@@ -36,7 +36,7 @@ CompilerResultOrError CompilerTarget::runCompiler(const CompilerOptions &options
 }
 
 CompilerResultOrError CompilerTarget::runCompiler(const CompilerOptions &options,
-                                                  std::string_view toolName,
+                                                  absl::string_view toolName,
                                                   const IR::P4Program *program) {
     return get(toolName).runCompilerImpl(options, program);
 }
@@ -101,11 +101,11 @@ const IR::P4Program *CompilerTarget::runMidEnd(const CompilerOptions &options,
     return program->apply(midEnd);
 }
 
-CompilerTarget::CompilerTarget(std::string_view toolName, const std::string &deviceName,
+CompilerTarget::CompilerTarget(absl::string_view toolName, const std::string &deviceName,
                                const std::string &archName)
     : Target(toolName, deviceName, archName) {}
 
-const CompilerTarget &CompilerTarget::get(std::string_view toolName) {
+const CompilerTarget &CompilerTarget::get(absl::string_view toolName) {
     return Target::get<CompilerTarget>(toolName);
 }
 
